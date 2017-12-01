@@ -3,20 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace Net_IdentityNewSample.Models
 {
     public class ApplicationDbContext :IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-        : base("DefaultConnection", throwIfV1Schema: false)
+        : base("IdentityNewSample", throwIfV1Schema: false)
         {
+
         }
 
-
-        public static ApplicationDbContext Create()
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            return new ApplicationDbContext();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Configurations.Add(new ApplicationUser.Config());
         }
     }
 }
