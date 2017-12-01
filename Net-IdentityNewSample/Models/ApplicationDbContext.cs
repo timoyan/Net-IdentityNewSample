@@ -20,6 +20,7 @@ namespace Net_IdentityNewSample.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Configurations.Add(new ApplicationUser.Config());
+            modelBuilder.Configurations.Add(new ApplicationRole.Config());
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Net_IdentityNewSample.Models;
 using Net_IdentityNewSample.Models.DTO;
-using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,13 +11,18 @@ namespace Net_IdentityNewSample.Controllers
     [RoutePrefix("api")]
     public class AccountController : ApiController
     {
-        private readonly ApplicationUserStore _store;
+        private readonly ApplicationUserStore _userStore;
         private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationRoleStore _roleStore;
+        private readonly ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
-            _store = new ApplicationUserStore(new ApplicationDbContext());
-            _userManager = new ApplicationUserManager(_store);
+            _userStore = new ApplicationUserStore(new ApplicationDbContext());
+            _userManager = new ApplicationUserManager(_userStore);
+
+            _roleStore = new ApplicationRoleStore(new ApplicationDbContext());
+            _roleManager = new ApplicationRoleManager(_roleStore);
         }
 
         [HttpGet]
@@ -55,6 +59,19 @@ namespace Net_IdentityNewSample.Controllers
         public async Task<HttpResponseMessage> Login([FromBody] LoginUserDTO data)
         {
             var result = await _userManager.FindAsync(data.userName, data.userPassword);
+
+            return Request.CreateResponse(result);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("addRole")]
+        public async Task<HttpResponseMessage> AddRole([FromBody]NewRoleDTO data)
+        {
+            var result = await _roleManager.CreateAsync(new ApplicationRole
+            {
+                Name = data.RoleName
+            });
 
             return Request.CreateResponse(result);
         }

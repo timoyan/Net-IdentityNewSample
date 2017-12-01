@@ -23,4 +23,21 @@ namespace Net_IdentityNewSample
         {
         }
     }
+
+    public class ApplicationRoleStore: RoleStore<ApplicationRole>
+    {
+        public ApplicationRoleStore(ApplicationDbContext context)
+            :base(context)
+        {
+
+        }
+    }
+
+    public class ApplicationRoleManager: RoleManager<ApplicationRole>
+    {
+        public ApplicationRoleManager(IRoleStore<ApplicationRole, string> store)
+            : base(store)
+        {
+        }
+    }
 }

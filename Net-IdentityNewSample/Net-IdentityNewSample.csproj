@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="createRole.html" />
     <Content Include="createUser.html" />
     <Content Include="Global.asax" />
     <Content Include="loginUser.html" />
@@ -136,8 +137,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\DTO\LoginUserDTO.cs" />
+    <Compile Include="Models\DTO\NewRoleDTO.cs" />
     <Compile Include="Models\DTO\RegisterUserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
